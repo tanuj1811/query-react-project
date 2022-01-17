@@ -1,0 +1,76 @@
+/** @format */
+
+@media (max-width: 40rem) {
+  .skills {
+    padding: 5rem 2rem;
+  }
+  .skills main {
+    flex-direction: column;
+  }
+  .skills section {
+    margin: 2rem 1rem;
+    width: 100%;
+    padding: 5px;
+  }
+  .skills section h2 {
+    margin-left: 1px;
+    font-weight: 180;
+  }
+}
+
+.skills {
+  font-family: sans-serif, serif;
+  padding: 3rem 4rem;
+}
+
+.skills h1 {
+  /* background-color: #fff; */
+  font-size: 5rem;
+  margin-bottom: 1rem;
+  position: relative;
+  font-weight: 200;
+}
+
+.skills main {
+  /* border: 1px solid #fefefe; */
+  min-height: 25rem;
+  display: flex;
+  /* flex-direction: column; */
+}
+
+.skills section {
+  /* border: 1px solid #fefefe; */
+  background-color: #fff;
+  margin: 1rem;
+  border-radius: 10px;
+  padding: 1.5rem;
+  flex: 1;
+  position: relative;
+  overflow: visible;
+}
+
+.skills section h2 {
+  background-color: #fefefe;
+  font-size: 2.5rem;
+  margin-left: 1rem;
+}
+
+.skill {
+  display: flex;
+  align-items: center;
+  background-color: #fff;
+  margin: 1rem 0;
+  padding: 0.8rem;
+  border-radius: 10px;
+}
+
+.skill img {
+  width: 2rem;
+  margin-right: 0.5rem;
+}
+
+.skill span {
+  background-color: #fefefe;
+  font-size: 1.5rem;
+  font-weight: bold;
+}

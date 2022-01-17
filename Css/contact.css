@@ -1,0 +1,56 @@
+/** @format */
+
+.contact {
+  font-family: sans-serif, serif;
+  padding: 5rem 4rem 1rem 4rem;
+}
+
+.contact main {
+  display: flex;
+  flex-direction: column;
+}
+
+.contact form {
+  flex: 6.5;
+  /* border-right: 1px solid #fefefe88; */
+  padding-right: 5rem;
+}
+.error {
+  color: orangered;
+  font-size: 1.75rem;
+  margin: 0 1rem;
+}
+
+.contact .input {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+}
+
+.contact input,
+textarea {
+  padding: 0.5rem;
+  /* width: 65%; */
+  border-radius: 5px;
+  font-size: 1.5rem;
+  background-color: #fff;
+}
+
+.contact button {
+  margin: 2rem 1rem;
+  padding: 0.5rem 1rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+  border-radius: 5px;
+  transition: 0.2s all;
+}
+
+.contact button:hover {
+  transform: translateY(-0.4rem);
+  box-shadow: 2px 2px 25px #fefefe11;
+}
+
+.contact button:active {
+  transform: translateY(-0.1rem);
+  box-shadow: 2px 2px 25px #fefefe33;
+}
