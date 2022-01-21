@@ -63,6 +63,9 @@
   padding: 0.8rem;
   border-radius: 10px;
 }
+.skill:hover {
+  transform: scale(1.1);
+}
 
 .skill img {
   width: 2rem;

@@ -61,6 +61,11 @@
   display: flex;
   position: relative;
 }
+
+.project:hover {
+  /* transform: scale(1.01); */
+  box-shadow: 3px 4px 20px 4px grey;
+}
 .content h2 {
   font-size: 2.5rem;
   background-color: #fff;
