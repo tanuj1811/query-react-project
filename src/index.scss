@@ -1,0 +1,24 @@
+/** @format */
+
+@import "./shared/SassVariables/variable.scss";
+
+* {
+  box-sizing: border-box;
+  margin: 0 auto;
+}
+
+body {
+  font-family: $Poppins;
+}
+
+// #root {
+//   height: 100%;
+// }
+
+main {
+  padding-top: 60px;
+  // background-color: $themeBlack;
+}
+.ck-editor__editable {
+  min-height: 200px !important;
+}

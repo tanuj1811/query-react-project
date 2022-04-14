@@ -1,0 +1,52 @@
+/** @format */
+
+@import "../../shared//SassVariables/variable.scss";
+
+.form__container {
+  display: flex;
+  flex-wrap: wrap;
+  width: 80%;
+  height: 800px;
+  background: #ffff;
+  padding: 10px;
+  margin: 0 auto;
+  margin-bottom: 30px;
+  overflow: visible;
+}
+.heading_container {
+  width: 500px;
+  height: 50px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  margin: 10px auto;
+
+  img {
+    width: 700px;
+    max-height: 90px;
+    filter: brightness(90%);
+    margin: 0 15px;
+    display: none;
+
+    @include breakPoint(md) {
+      // display: none;
+      display: block;
+    }
+  }
+}
+
+.placeForm {
+  list-style: none;
+  margin: 15px 0;
+  padding: 1rem;
+  width: 90%;
+  max-width: 60rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+  border-radius: 6px;
+  background: white;
+}
+
+.rich_text_area {
+  width: 100px;
+  height: 200px;
+}
