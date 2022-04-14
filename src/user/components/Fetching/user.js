@@ -1,4 +1,4 @@
-const User = [
+export const User = [
   {
     _id: '',
     name: '',
