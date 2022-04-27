@@ -1,15 +1,12 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-import { Queries as queries } from './Fetching/Queries'
-
 import styles from './AllQueriesList.module.scss'
 import Card from '../../shared/components/UIElements/Card'
 
 const AllQueriesList = (props) => {
-  if (props.queries) {
-    queries = props.queries
-  }
+  const queries = props.queries
+  // if (props.queries) setQueries(props.queries)
 
   return (
     <React.Fragment>
@@ -24,8 +21,8 @@ const AllQueriesList = (props) => {
       <div className={styles.queriesContainer}>
         {queries.map((query) => {
           return (
-            <Card className={styles.queryBox}>
-              <Link className={styles.link} to={`/${query._id}/query`}>
+            <Card key={query._id} className={styles.queryBox}>
+              <Link className={styles.link} to={`/queries/${query._id}`}>
                 <h2>{query.title}</h2>
                 <h5>{query.description}</h5>
               </Link>

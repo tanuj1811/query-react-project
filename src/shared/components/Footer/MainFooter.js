@@ -1,48 +1,53 @@
-import React from "react";
-
-import styles from './footer.module.scss'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import React from 'react'
+import './footer.scss'
+import {
+  faGithub,
+  faTelegram,
+  faDiscord,
+  faInstagram,
+} from '@fortawesome/free-brands-svg-icons'
 
 const MainFooter = () => {
-    return(
-        <footer className={styles.footer}>
-            <div className={styles.footer__wrapper}>
-                <div className={styles.footer__row}>
-                    <div className={styles.footer__column}>
-                        <h3 className={styles.footer__title}>About US</h3>
-                            
-                        <a  className={styles.footer__link}  href="/" >Testionials</a>
-                        <a  className={styles.footer__link}  href="/" >Testionials</a>
-                        <a  className={styles.footer__link}  href="/" >Testionials</a>
-                        <a  className={styles.footer__link}  href="/" >Testionials</a>
-                    </div>
-                    <div className={styles.footer__column}>
-                        <h3 className={styles.footer__title}>Serives</h3>
-                            
-                        <a  className={styles.footer__link}  href="/" >ask Queries</a>
-                        <a  className={styles.footer__link}  href="/" >ask Queries</a>
-                        <a  className={styles.footer__link}  href="/" >ask Queries</a>
-                        <a  className={styles.footer__link}  href="/" >ask Queries</a>
-                    </div>
-                    <div className={styles.footer__column}>
-                        <h3 className={styles.footer__title}>Contact Us</h3>
-                            
-                        <a  className={styles.footer__link}  href="/" >Email</a>
-                        <a  className={styles.footer__link}  href="/" >Email</a>
-                        <a  className={styles.footer__link}  href="/" >Email</a>
-                        <a  className={styles.footer__link}  href="/" >Email</a>
-                    </div>
-                    <div className={styles.footer__column}>
-                        <h3 className={styles.footer__title}>Social</h3>
-                            
-                        <a  className={styles.footer__link}  href="/" >LinkedIn</a>
-                        <a  className={styles.footer__link}  href="/" >LinkedIn</a>
-                        <a  className={styles.footer__link}  href="/" >LinkedIn</a>
-                        <a  className={styles.footer__link}  href="/" >LinkedIn</a>
-                    </div>
-                </div>
-            </div>
-        </footer>
-    );
+  return (
+    <div class="footer-basic">
+      <footer>
+        <div class="social">
+          <a href="#">
+            <FontAwesomeIcon icon={faGithub} />
+          </a>
+          <a href="#">
+            <FontAwesomeIcon icon={faInstagram} />
+          </a>
+          <a href="#">
+            <i class="icon ion-social-twitter"></i>
+            <FontAwesomeIcon icon={faTelegram} />
+          </a>
+          <a href="#">
+            <FontAwesomeIcon icon={faDiscord} />
+          </a>
+        </div>
+        <ul class="list-inline">
+          <li class="list-inline-item">
+            <a href="#">Home</a>
+          </li>
+          <li class="list-inline-item">
+            <a href="#">Services</a>
+          </li>
+          <li class="list-inline-item">
+            <a href="#">About</a>
+          </li>
+          <li class="list-inline-item">
+            <a href="#">Terms</a>
+          </li>
+          <li class="list-inline-item">
+            <a href="#">Privacy Policy</a>
+          </li>
+        </ul>
+        <p class="copyright">cause.com © 2022</p>
+      </footer>
+    </div>
+  )
 }
 
-export default MainFooter;
+export default MainFooter

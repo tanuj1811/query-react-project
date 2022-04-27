@@ -1,4 +1,4 @@
-export const User = [
+export const Users = [
   {
     _id: '',
     name: '',
@@ -8,6 +8,7 @@ export const User = [
     password: '',
     score: '',
     profilePic: 'https://bootdey.com/img/Content/avatar/avatar7.png',
+    role: 'user',
     otherContactLinks: {
       portfolio: '',
       resume: '',
@@ -37,6 +38,53 @@ export const User = [
     password: '123',
     score: 100,
     profilePic: 'https://bootdey.com/img/Content/avatar/avatar7.png',
+    role: 'admin',
+    specialization: [
+      'java',
+      'reactJS',
+      'python',
+      'git',
+      'spring-boot',
+      'electrician',
+    ],
+    otherContactLinks: {
+      portfolio: '',
+      resume: '',
+      linkedin: '',
+      github: '',
+      discord: '',
+    },
+    otherPlatformLinks: {
+      codeforces: '',
+      codechef: '',
+      leetcode: '',
+      atCoders: '',
+    },
+    stats: {
+      Asked: 30,
+      answers: 1,
+      groupsJoined: 0,
+      freq: 100,
+    },
+  },
+  {
+    _id: 'ccqh06',
+    name: 'ccqh06 Sharma',
+    email: 'darkworld6666@gmail.com',
+    profession: 'darkworld6666@gmail.com',
+    description: 'this is me of this site...',
+    password: '123',
+    score: 0,
+    profilePic: 'https://bootdey.com/img/Content/avatar/avatar7.png',
+    role: 'admin',
+    specialization: [
+      'java',
+      'reactJS',
+      'python',
+      'git',
+      'spring-boot',
+      'electrician',
+    ],
     otherContactLinks: {
       portfolio: '',
       resume: '',
@@ -66,35 +114,15 @@ export const User = [
     password: '123',
     score: 0,
     profilePic: 'https://bootdey.com/img/Content/avatar/avatar7.png',
-    otherContactLinks: {
-      portfolio: '',
-      resume: '',
-      linkedin: '',
-      github: '',
-      discord: '',
-    },
-    otherPlatformLinks: {
-      codeforces: '',
-      codechef: '',
-      leetcode: '',
-      atCoders: '',
-    },
-    stats: {
-      Asked: 30,
-      answers: 1,
-      groupsJoined: 0,
-      freq: 100,
-    },
-  },
-  {
-    _id: 'ccqh06',
-    name: 'ccqh06 Sharma',
-    email: 'darkworld6666@gmail.com',
-    profession: 'creator',
-    description: 'this is me of this site...',
-    password: '123',
-    score: 0,
-    profilePic: 'https://bootdey.com/img/Content/avatar/avatar7.png',
+    role: 'admin',
+    specialization: [
+      'java',
+      'reactJS',
+      'python',
+      'git',
+      'spring-boot',
+      'electrician',
+    ],
     otherContactLinks: {
       portfolio: '',
       resume: '',
@@ -117,4 +145,4 @@ export const User = [
   },
 ]
 
-export default User
+export default Users

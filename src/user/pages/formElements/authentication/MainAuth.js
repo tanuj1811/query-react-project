@@ -1,11 +1,10 @@
 import React, { useState, useContext } from 'react'
 import { motion } from 'framer-motion'
-import { useNavigate, useLocation } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import Login from './login'
 import Signup from './signup'
 import styles from './MainAuth.module.scss'
 
-import { AuthContext } from '../../../../shared/context/authContext'
 import { AccountContext } from './accountContext'
 
 const backdropVariants = {
@@ -30,9 +29,7 @@ const expandingTransition = {
 }
 
 const MainAuth = () => {
-  const navigate = useNavigate()
-  const location = useLocation()
-  const auth = useContext(AuthContext)
+  // const navigate = useNavigate()
   const [isExpanded, setExpanded] = useState(false)
   const [active, setActive] = useState('signin')
 
@@ -57,17 +54,11 @@ const MainAuth = () => {
     }, 400)
   }
 
-  const loginSubmitHandler = (event) => {
-    event.preventDefault()
-    auth.login()
-    navigate(-1)
-  }
-
   const contextValue = { switchToSignup, switchToSignin }
 
   return (
     <AccountContext.Provider value={contextValue}>
-      <form className={styles.boxContainer} onSubmit={loginSubmitHandler}>
+      <div className={styles.boxContainer}>
         <div className={styles.topContainer}>
           <motion.div
             className={styles.BackDrop}
@@ -95,7 +86,7 @@ const MainAuth = () => {
           {active === 'signin' && <Login />}
           {active === 'signup' && <Signup />}
         </div>
-      </form>
+      </div>
     </AccountContext.Provider>
   )
 }

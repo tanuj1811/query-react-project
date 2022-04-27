@@ -20,7 +20,7 @@ const Comment = (props) => {
         <div className="trash-icon">
           <FontAwesomeIcon
             icon={faTrash}
-            onClick={props.deleteCommentHandler}
+            onClick={() => props.deleteCommentHandler(cmnt._id)}
           />
         </div>
       </div>

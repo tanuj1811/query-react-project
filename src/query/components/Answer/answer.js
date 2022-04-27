@@ -6,7 +6,7 @@ import { faCheckCircle, faHeart } from '@fortawesome/free-solid-svg-icons'
 import UserBox from '../../../user/components/UserBox/userbox'
 import { Card } from '../../../shared/components/UIElements'
 import AdminFeature from '../AdminFeature/adminFeature'
-const Answer = ({ answer, className, ...restProps }) => {
+const Answer = ({ answer, className, deleteAnswer, ...restProps }) => {
   const ans = answer
 
   const [approved, setApproved] = useState(ans.approved)
@@ -28,8 +28,13 @@ const Answer = ({ answer, className, ...restProps }) => {
       <div className="content">
         <p>{ans.answer}</p>
         <div>
-          <AdminFeature edit delete />
-          <UserBox className="userbox" date={ans.date} userId={ans.userId} />
+          <AdminFeature
+            edit="edit-answer"
+            delete="delete"
+            answer={ans}
+            deleteAnswer={() => deleteAnswer(ans._id)}
+          />
+          <UserBox className="userbox" date={ans.date} userId="queryhub1" />
         </div>
       </div>
 

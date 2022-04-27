@@ -1,12 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router'
+import axios from 'axios'
 import { useForm } from '../../shared/hooks/form-hook'
 import { Button, Card, Input } from '../../shared/components/UIElements'
-import {
-  Answers,
-  Queries,
-  Comments,
-} from '../../query/components/Fetching/Queries'
 
 import './query.scss'
 import Answer from '../components/Answer/answer'
@@ -20,24 +16,49 @@ import AdminFeature from '../components/AdminFeature/adminFeature'
 
 const Query = () => {
   const currentQueryId = useParams().queryId
-  const QUERY = Queries.find((query) => query._id === currentQueryId)
-
-  const [ANSWERS, setAnswers] = useState(
-    Answers.filter((ans) => ans.queryId === currentQueryId),
-  )
-  const [COMMENTS, setComments] = useState(
-    Comments.filter((cmnt) => cmnt.queryId === currentQueryId),
-  )
-
+  const [QUERY, setQUERY] = useState({})
   const [comment, setComment] = useState('')
   const [answer, setAnswer] = useState('')
-  const [formState, inputHandler] = useForm(
+
+  useEffect(() => {
+    axios.get(`http://localhost:8080/api/queries/${currentQueryId}`).then(
+      (response) => {
+        setQUERY(response.data)
+      },
+      (error) => {
+        console.log(error)
+      },
+    )
+    console.log(QUERY)
+  }, [])
+
+  const loadQuery = async () => {
+    axios.get(`http://localhost:8080/api/queries/${currentQueryId}`).then(
+      (response) => {
+        setQUERY(response.data)
+      },
+      (error) => {
+        console.log(error)
+      },
+    )
+  }
+
+  const [formState, inputHandler, setFormData] = useForm(
     {
       postAnswer: { value: '', isValid: false },
     },
     false,
   )
 
+  const deleteQueryHandler = () => {
+    // console.log('reached')
+    axios.delete(`http://localhost:8080/api/queries/${QUERY._id}`).then(
+      (response) => {
+        console.log('query deleted from database' + QUERY._id)
+      },
+      (error) => console.log(error),
+    )
+  }
   const postAnswerHandler = (e) => {
     e.preventDefault()
     var today = new Date()
@@ -45,40 +66,84 @@ const Query = () => {
     var mm = String(today.getMonth() + 1).padStart(2, '0') //January is 0!
     var yyyy = today.getFullYear()
 
-    today = dd + '/' + mm + '/' + yyyy
+    let date = dd + '/' + mm + '/' + yyyy
     console.log(answer)
-    ANSWERS.push({
-      _id: 'ccqha0n0s0',
-      answer: answer,
-      userId: 'queryhub1',
-      date: today,
+    const data = {
+      answer: formState.inputs.postAnswer.value,
+      userId: '625d8a7635f7113fc87ed5ff',
+      date: date,
       queryId: currentQueryId,
       approved: false,
       score: 0,
-    })
-    setAnswer('')
-    // console.log('added successfully')
-  }
-  const deleteCommentHandler = () => {
-    console.log('deleting comment w.r.t')
+    }
+    axios
+      .post(`http://localhost:8080/api/queries/${QUERY._id}/addAnswer`, data)
+      .then(
+        (response) => {
+          loadQuery()
+          console.log('Answer added Successfully :)')
+          setFormData(
+            {
+              postAnswer: { value: '', isValid: false },
+            },
+            false,
+          )
+          setAnswer('')
+        },
+        (error) => {
+          console.log(error)
+        },
+      )
   }
   const addCommentHandler = (e) => {
     if (e.key === 'Enter') {
       e.preventDefault()
-      COMMENTS.push({
-        _id: 'ccqh0c0o0m001',
+      const data = {
         content: comment,
-        userId: 'queryhub1',
+        userId: '625d8a7635f7113fc87ed5ff',
         queryId: QUERY._id,
-      })
+      }
+      axios
+        .post(`http://localhost:8080/api/queries/${QUERY._id}/addComment`, data)
+        .then(
+          (response) => {
+            loadQuery()
+            console.log('Comment added Successfully :)')
+          },
+          (error) => {
+            console.log(error)
+          },
+        )
       setComment('')
     }
   }
 
-  useEffect(() => {
-    setComments(Comments.filter((cmnt) => cmnt.queryId === currentQueryId))
-    console.log('rendered successfully')
-  }, [])
+  const deleteAnswerHandler = (answerId) => {
+    axios
+      .delete(`http://localhost:8080/api/queries/${QUERY._id}/ans/${answerId}`)
+      .then(
+        (response) => {
+          console.log('answer deleted successfully ' + answerId)
+          loadQuery()
+        },
+        (error) => {
+          console.log(error)
+        },
+      )
+  }
+  const deleteCommentHandler = (commentId) => {
+    axios
+      .delete(`http://localhost:8080/api/queries/${QUERY._id}/${commentId}`)
+      .then(
+        (response) => {
+          console.log('comment deleted successfully ' + commentId)
+          loadQuery()
+        },
+        (error) => {
+          console.log(error)
+        },
+      )
+  }
 
   return (
     <>
@@ -86,15 +151,11 @@ const Query = () => {
         <div className="tagsandquery">
           <div className="tags">
             <b>Tags: </b>
-            {QUERY.tags.map((e) => (
-              <span>{e}</span>
-            ))}
+            {QUERY.tags && QUERY.tags.map((e) => <span>{e}</span>)}
           </div>
           <div className="tags">
             <b>Groups Mentioned: </b>
-            {QUERY.groups.map((e) => (
-              <span>{e}</span>
-            ))}
+            {QUERY.groups && QUERY.groups.map((e) => <span>{e}</span>)}
           </div>
         </div>
         <div className="main_container">
@@ -104,19 +165,25 @@ const Query = () => {
         <AdminFeature
           className="adminFeature"
           queryId={QUERY._id}
-          share
-          edit
-          delete
+          share="share"
+          edit="edit-query"
+          delete="delete-query"
+          deleteHandler={deleteQueryHandler}
           post_answer
         />
-        <UserBox date={QUERY.date} userId={QUERY.userId} className="userbox" />
+        <UserBox date={QUERY.date} userId="queryhub1" className="userbox" />
         <hr />
         <div className="ansAndComments">
           <div className="answers">
             <h3>Answers</h3>
-            {ANSWERS.map((ans) => (
-              <Answer answer={ans} className="answer" />
-            ))}
+            {QUERY.answers &&
+              QUERY.answers.map((ans) => (
+                <Answer
+                  answer={ans}
+                  className="answer"
+                  deleteAnswer={() => deleteAnswerHandler(ans._id)}
+                />
+              ))}
           </div>
           <div className="comments">
             <div className="add_comment">
@@ -131,15 +198,16 @@ const Query = () => {
                 onChange={(e) => setComment(e.target.value)}
               />
             </div>
-            {COMMENTS.map((cmnt) => {
-              return (
-                <Comment
-                  className="comment"
-                  comment={cmnt}
-                  deleteCommentHandler={deleteCommentHandler}
-                />
-              )
-            })}
+            {QUERY.comments &&
+              QUERY.comments.map((cmnt) => {
+                return (
+                  <Comment
+                    className="comment"
+                    comment={cmnt}
+                    deleteCommentHandler={() => deleteCommentHandler(cmnt._id)}
+                  />
+                )
+              })}
           </div>
         </div>
         <form
@@ -150,14 +218,13 @@ const Query = () => {
           <Input
             id="postAnswer"
             name="postAnswer"
-            element="richTextarea"
+            element="ckeditor"
             label="Post Answer"
             value={answer || ''}
             errText="Answer Range must be 20-500 words"
             row="15"
             validators={[VALIDATOR_MINLENGTH(20), VALIDATOR_MAXLENGTH(500)]}
             onInput={inputHandler}
-            onKeyDown={(e) => setAnswer(e.target.value)}
           />
           <Button type="submit" inverse disabled={!formState.isValid}>
             Share Answer :)

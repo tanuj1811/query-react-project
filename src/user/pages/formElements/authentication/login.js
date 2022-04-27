@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 
 import { useForm } from '../../../../shared/hooks/form-hook'
 
@@ -9,11 +9,15 @@ import {
   VALIDATOR_EMAIL,
   VALIDATOR_MINLENGTH,
 } from '../../../../shared/util/validator'
-import Button from '../../../../shared/components/UIElements/Button'
-import { Route } from 'react-router-dom'
+import { useAuth } from '../../../../shared/context/authContext'
+import { useNavigate } from 'react-router-dom'
 
 const Login = () => {
+  const navigate = useNavigate()
   const { switchToSignup } = useContext(AccountContext)
+  const { login } = useAuth()
+  const [error, setError] = useState('')
+  const [loading, setLoading] = useState('')
   const [formState, inputHandler] = useForm(
     {
       userEmail: { value: '', isValid: false },
@@ -22,9 +26,25 @@ const Login = () => {
     false,
   )
 
+  const loginSubmitHandler = async (e) => {
+    e.preventDefault()
+    try {
+      setError('')
+      setLoading(true)
+      await login(
+        formState.inputs.userEmail.value,
+        formState.inputs.userPassword.value,
+      )
+      navigate(-1)
+    } catch (error) {
+      console.log(error)
+    }
+    setLoading(false)
+  }
   return (
-    <div className={styles.boxContainer}>
+    <form className={styles.boxContainer} onSubmit={loginSubmitHandler}>
       <div className={styles.formContainer}>
+        {error && <div className={styles.error}>{error}</div>}
         <Input
           className={styles.formContainer__input}
           id="userEmail"
@@ -47,13 +67,13 @@ const Login = () => {
         />
       </div>
       <span style={{ display: 'flex', height: '10px' }}></span>
-      <a className={styles.mutedLink} href="#">
+      <a className={styles.mutedLink} href="">
         Forget your password ?
       </a>
       <span style={{ display: 'flex', height: '1.6em' }}></span>
       <button
-        disabled={!formState.isValid}
         className={styles.submitButton}
+        disabled={loading && !formState.isValid}
         type="submit"
       >
         Signin
@@ -66,7 +86,7 @@ const Login = () => {
           Signup
         </a>
       </a>
-    </div>
+    </form>
   )
 }
 

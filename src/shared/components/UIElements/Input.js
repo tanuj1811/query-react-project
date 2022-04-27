@@ -25,6 +25,7 @@ const Input = (props) => {
     isValid: props.valid || false,
     isTouch: false,
   })
+
   const { id, onInput } = props
   const { value, isValid } = inputState
   useEffect(() => {
@@ -71,8 +72,7 @@ const Input = (props) => {
         placeholder={props.placeholder}
         onChange={InputHandler}
         onBlur={touchHandler}
-        value={inputState.value}
-        onKeyDown={props.onKeyDown}
+        value={inputState.value || props.value}
       />
     ) : props.element === 'textarea' ? (
       <textarea
@@ -95,6 +95,7 @@ const Input = (props) => {
         // }}
         onChange={(event, editor) => RichTextInputHandler(editor.getData())}
         onBlur={touchHandler}
+        onInput={(event, editor) => console.log('editor.getData()')}
         // onFocus={(event, editor) => {
         //   console.log('Focus.', editor)
         // }}

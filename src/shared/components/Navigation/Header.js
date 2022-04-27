@@ -2,13 +2,15 @@ import React, { useContext, useState, useEffect } from 'react'
 
 import './header.scss'
 
-import { AuthContext } from '../../context/authContext'
 import { Link, NavLink } from 'react-router-dom'
 
 import { BiMenuAltRight } from 'react-icons/bi'
 import { AiOutlineClose } from 'react-icons/ai'
+import { useAuth } from '../../context/authContext'
+
 const Header = () => {
-  const auth = useContext(AuthContext)
+  const auth = { isLoggedIn: false }
+  const { currentUser, logout } = useAuth()
 
   const [menuBtn, setMenuBtn] = useState(false)
   const [screenSize, setScreenSize] = useState({
@@ -44,14 +46,14 @@ const Header = () => {
           <h2 className="logo">Query Point</h2>
         </div>
         <div>
-          {!auth.isLoggedIn && (
+          {!currentUser && (
             <nav className={`feature ${menuBtn ? 'menu' : ''}`}>
               <NavLink to="/">Home</NavLink>
               <NavLink to="/">About</NavLink>
               <NavLink to="/auth">Login/SignUp</NavLink>
             </nav>
           )}
-          {auth.isLoggedIn && (
+          {currentUser && (
             <nav className={`feature ${menuBtn ? 'menu' : ''}`}>
               <NavLink to="/">Home</NavLink>
               <NavLink to="/">Groups</NavLink>
@@ -88,10 +90,10 @@ const Header = () => {
                   <i className="fa fa-caret-down"></i>
                 </button>
                 <div className="dropdown-content">
-                  <Link to="/users/:userId">{`{tanuj}`}</Link>
+                  <Link to={`/users/${currentUser._id}`}>{`{tanuj}`}</Link>
                   <Link to="#">Edit Profile</Link>
                   <Link to="#">Password Setting</Link>
-                  <Link to="/" onClick={() => auth.logout()}>
+                  <Link to="/" onClick={() => logout()}>
                     Logout
                   </Link>
                 </div>

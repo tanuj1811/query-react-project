@@ -9,6 +9,12 @@
 
 body {
   font-family: $Poppins;
+  // background-color: aqua;
+  background-image: linear-gradient(
+    to bottom,
+    rgb(255, 255, 255),
+    rgb(92, 92, 88)
+  );
 }
 
 // #root {

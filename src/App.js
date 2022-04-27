@@ -1,7 +1,7 @@
-import React, { useState, useCallback } from 'react'
+import React from 'react'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 
-import { AuthContext } from './shared/context/authContext'
+import { AuthProvider } from './shared/context/authContext'
 
 import Home from './user/pages/home'
 import Navigation from './shared/components/Navigation/Header'
@@ -12,25 +12,12 @@ import AllQueries from './query/pages/AllQueries'
 import Query from './query/pages/Query'
 import Profile from './user/pages/Profile'
 import EditQuery from './query/pages/editQuery/editQuery'
+import EditProfile from './user/pages/formElements/EditProfile/editProfile'
+import MainFooter from './shared/components/Footer/MainFooter'
 
 const App = () => {
-  const [isLoggedIn, setIsLogin] = useState(false)
-
-  const login = useCallback(() => {
-    setIsLogin(true)
-  }, [])
-
-  const logout = useCallback(() => {
-    setIsLogin(false)
-  }, [])
   return (
-    <AuthContext.Provider
-      value={{
-        isLoggedIn: isLoggedIn,
-        login: login,
-        logout: logout,
-      }}
-    >
+    <AuthProvider>
       <React.Fragment>
         <Router>
           <Navigation />
@@ -38,22 +25,33 @@ const App = () => {
             <Routes>
               <Route path="/" element={<Home />} exact={true} />
               <Route path="/query" element={<NewQuery />} exact={true} />
-              <Route path="/:queryId/query" element={<Query />} exact={true} />
+              <Route
+                path="/queries/:queryId"
+                element={<Query />}
+                exact={true}
+              />
               <Route path="/queries" element={<AllQueries />} exact={true} />
               <Route path="/auth" element={<MainAuth />} exact={true} />
               <Route path="/users/:userId" element={<Profile />} exact={true} />
               <Route
-                path="/edit/:queryId"
+                path="/:userId/edit"
+                element={<EditProfile />}
+                exact={true}
+              />
+              <Route
+                path="/queries/:queryId/edit"
                 element={<EditQuery />}
                 exact={true}
               />
             </Routes>
             {/* <Navigate to="/" element={<Home />} /> */}
           </main>
-          {/* <footer><MainFooter /></footer> */}
+          <footer>
+            <MainFooter />
+          </footer>
         </Router>
       </React.Fragment>
-    </AuthContext.Provider>
+    </AuthProvider>
   )
 }
 
